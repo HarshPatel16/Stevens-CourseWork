@@ -1,0 +1,69 @@
+<head>
+    <meta charset="utf-8">
+    <title>{{tvshow.name}}</title>
+    <link rel="stylesheet" href="/public/main_styles.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <article>
+                    <h1>{{tvshow.name}}</h1>
+                    {{#if tvshow.image.medium}}
+                    <image src="{{tvshow.image.medium}}"></image>
+                    {{else}}
+                    <dd>N/A</dd>
+                    {{/if}}
+
+                    <dl>
+                        <dt>Language</dt>
+                        {{#if tvshow.language}}
+                        <dd>{{tvshow.language}}</dd>
+                        {{else}}
+                        <dd>N/A</dd>
+                        {{/if}}
+
+                        <dt>Genres </dt>
+                        {{#if tvshow.genres.length}}
+                        <dd>
+                            <ul>
+                                {{#each tvshow.genres}}
+                                <li>{{{this}}}</li>
+                                {{/each}}
+                            </ul>
+                        </dd>
+                        {{else}}
+                        <dd>N/A</dd>
+                        {{/if}}
+
+                        <dt>Average rating</dt>
+                        {{#if tvshow.rating.average}}
+                        <dd>{{tvshow.rating.average}}</dd>
+                        {{else}}
+                        <dd>N/A</dd>
+                        {{/if}}
+
+                        <dt>Network name</dt>
+                        {{#if tvshow.network.name}}
+                        <dd>{{tvshow.network.name}}</dd>
+                        {{else}}
+                        <dd>N/A</dd>
+                        {{/if}}
+
+                        <dt>Summary</dt>
+                        {{#if tvshow.summary}}
+                        <dd>{{{tvshow.summary}}}</dd>
+                        {{else}}
+                        <dd>N/A</dd>
+                        {{/if}}
+
+                    </dl>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+</body>

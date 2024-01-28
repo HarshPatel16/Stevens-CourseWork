@@ -1,0 +1,30 @@
+<head>
+    <meta charset="utf-8">
+    <title>Show Found</title>
+    <link rel="stylesheet" href="/public/main_styles.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Show Found</h1>
+                {{#if data.showName.length}}
+                <h2>{{data.showName}}</h2>
+                {{#if data.tvshow.length}}
+                <ul>
+                    {{#each data.tvshow}}
+                    <li><a href="/shows/{{this.show.id}}">{{this.show.name}}</a></li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                <p class="show-not-found">We're sorry, but no results were found for {{data.showName}}.</p>
+                {{/if}}
+                {{else}}
+                <h2>Search string is empty !!</h2>
+                {{/if}}
+        </div>
+        </div>
+    </main>
+
+</body>

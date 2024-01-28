@@ -81,7 +81,7 @@ async remove(id){
 
     if (info.deletedCount === 0) {throw 'Could not delete band';}
 
-    return bandCollection_name + " has been successfully deleted!";
+    return `${bandCollection_name} has been successfully deleted!`;
 },
 
 async rename(id, newName){
