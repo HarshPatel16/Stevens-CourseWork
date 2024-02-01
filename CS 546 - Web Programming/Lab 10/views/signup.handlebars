@@ -1,0 +1,25 @@
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Sign Up</title>
+  <link rel='stylesheet' href='/public/styles.css' />
+</head>
+<body>
+  <main class='container'>
+    <h1>Sign Up</h1>
+    {{#if error}}
+      <p class='errorMessage'>{{error}}</p>
+    {{/if}}
+    <div class='formContainer'>
+      <form action='/signup' method='post' id='signup-form' autocomplete='off'>
+        <label for='username'>Username</label>
+        <input type='text' name='username' id='username' placeholder="Enter Your Username"/>
+        <label for='password'>Password</label>
+        <input type='password' name='password' id='password' placeholder="Enter Your Password"/>
+        <button type='submit'>Signup</button>
+      </form>
+      <a href='/'>You already have an account? Click here to log-in</a>
+    </div>
+  </main>
+</body>

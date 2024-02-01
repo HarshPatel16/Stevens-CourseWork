@@ -7,7 +7,6 @@ const questionOne = function questionOne(arr) {
     return r;
     }
 
-
 const questionTwo = function questionTwo(num) { 
   //   Implement question 2 here
     let result

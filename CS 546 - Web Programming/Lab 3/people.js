@@ -53,7 +53,6 @@ async function sameEmail(emailDomain) {
   return list
 }
 
-
 async function manipulateIp() {
   const data = await getPeople();
   let list=[]

@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html,
+  body {
+    font-size: 16pt;
+  }
+  
+  body {
+    background: #65b4ce;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  main {
+    max-width: 75%;
+    margin: auto;
+  }
+  
+  header {
+    border-bottom: 1px solid #afafaf;
+  }
+  
+  h1,h2,h3,h4,h5,h6 {
+    color: rgba(255, 0, 0, 0.856);
+    margin-bottom: 5px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+  
+  h5 {
+    font-size: 1.15rem;
+  }
+  
+  h6 {
+    font-size: 1.05rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .errorMessage {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+  }
+  
+  .formContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 70px 30px;
+    border-radius: 10px;
+  }
+  
+  form {
+    display: static;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  input {
+    padding: 4px 6px;
+    outline: none;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  a {
+    color: blue;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  a:hover{
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  
+  .logout {
+    position: absolute;
+    bottom: 50px;
+  }
+  

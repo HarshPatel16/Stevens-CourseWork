@@ -10,8 +10,7 @@ const camelcase = function camelcase(s) {
         if (st[i] == ' ')
 		{
 			str+= st[i+1].toUpperCase();
-			i++;
-			
+			i++;	
 		}
 		else{
             str+= st[i];

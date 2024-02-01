@@ -1,0 +1,27 @@
+<head>
+  <meta charset='UTF-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>MySite</title>
+  <link rel='stylesheet' href='/public/styles.css' />
+</head>
+<body>
+  <main class='container'>
+    <h1>Login</h1>
+    {{#if error}}
+      <p class='errorMessage'>Error: {{error}}</p>
+    {{/if}}
+    <div class='formContainer'>
+      <form action='/login' method='post' id='login-form' autocomplete='off'>
+        <label for='username'>Username</label>
+        <input type='text' name='username' id='username' placeholder="Enter your Username" />
+        <label for='password'>Password</label>
+        <input type='password' name='password' id='password' placeholder="Enter your password" />
+        <button type='submit'>Login</button>
+      </form>
+      <a href='/signup'>Sign-up</a>
+    </div>
+  </main>
+
+
+</body>

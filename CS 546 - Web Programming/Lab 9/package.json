@@ -1,8 +1,8 @@
 {
-  "name": "lab-6",
+  "name": "cs-546-lab-9",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "My lab 9 module",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js"
   },
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
-    "mongo": "^0.1.0",
-    "mongodb": "^4.4.1"
+    "express-handlebars": "^6.0.4",
+    "handlebars": "^4.7.7"
   }
 }
