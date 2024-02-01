@@ -1,0 +1,105 @@
+NAME - PATEL HARSH
+
+1.
+
+with min_q as(
+	with base as(
+		select cust,min(quant)as MIN_Q,max(quant) as MAX_Q,round (avg(quant),0 )as AVG_Q
+		from sales
+		group by cust)
+	select base.cust, base.MIN_Q, sales.prod as MIN_PROD, 
+		sales.date as MIN_date,
+		sales.state as MIN_ST, base.MAX_Q, base.AVG_Q
+	from sales,base
+	where sales.cust=base.cust and sales.quant=base.MIN_Q)
+
+	select  min_q.cust, min_q.MIN_Q, min_q.MIN_PROD, 
+		min_q.MIN_date, min_q.MIN_ST, 
+		min_q.MAX_Q,sales.prod as MAX_PROD, 
+		sales.date as MAX_date, sales.state as MAX_ST,
+		min_q.AVG_Q
+	from sales,min_q
+	where sales.cust=min_q.cust and sales.quant=min_q.MAX_Q
+
+
+2.
+
+with base as(
+	select cust, prod, max(quant) as OCT_MAX, date as OCT_DATE
+	from sales
+	group by cust,prod
+	having year>2017 and month ='10')
+
+t2 as(
+	select min(quant) as NOV_MIN, date as NOV_DATE
+	from sales
+	group by cust, prod
+	where month='11')
+
+t3 as(
+	select min(quant) as DEC_MIN, date as DEC_DATE
+	from sales
+	group by cust,prod
+	where month= '12')
+
+select base.cust,base.prod, base.OCT_MAX,base.OCT_DATE,t2.NOV_MIN,t2.NOV_DATE,t3.DEC_MIN,t3.DEC_DATE
+from base,t2,t3
+order by cust,prod
+
+
+3.
+
+with base as (
+	select prod,month,sum(quant)as sum_q
+	from sales 
+	group by prod,month),
+
+MAX_MIN as (
+	select max(sum_q)as MOST_POP_TOTAL_Q,min(sum_q) as LEAST_POP_TOTAL_Q,month
+	from base
+	group by month),
+
+MAX as(
+	select  MAX_MIN.month, MAX_MIN.MOST_POP_TOTAL_Q, MAX_MIN.LEAST_POP_TOTAL_Q, base.prod as MOST_POPULAR_PROD
+	from MAX_MIN,base
+	where MAX_MIN.month=base.month and base.sum_q=MAX_MIN.MOST_POP_TOTAL_Q)
+
+select  MAX.month, MAX.MOST_POPULAR_PROD, MAX.MOST_POP_TOTAL_Q, base.prod as LEAST_POPULAR_PROD, MAX.LEAST_POP_TOTAL_Q
+from MAX,base
+where MAX.month=base.month and MAX.LEAST_POP_TOTAL_Q=base.sum_q
+order by MAX.month
+
+
+4.
+
+with base as(
+	select prod, sum(quant) as SUM_Q, month
+	from sales
+	group by prod,month
+	ORDER BY MONTH,prod),
+ 
+MAX_MIN as(
+	select max(SUM_Q) as MAX_Q, min(SUM_Q) as MIN_Q, prod
+	from base
+	group by prod),
+
+MAX_Q as(
+	select base.prod,base.month as MOST_FAV_MO,MAX_MIN.MIN_Q
+	from base,MAX_MIN
+	WHERE base.prod=MAX_MIN.prod and base.SUM_Q=MAX_MIN.MAX_Q )
+	
+select MAX_Q.prod,MAX_Q.MOST_FAV_MO,base.month as LEAST_FAV_MO
+from base,MAX_Q
+where base.prod=MAX_Q.prod and base.SUM_Q=MAX_Q.MIN_Q 
+
+
+5.
+
+select  prod as PRODUCT, cust as CUSTOMER,
+	COALESCE(round(avg(case when state='CT' then quant end),0),0) as CT_AVG,
+	COALESCE(round(avg(case when state='NY' then quant end),0),0) as NY_AVG,
+	COALESCE(round(avg(case when state='NJ' then quant end),0),0) as NJ_AVG,
+	COALESCE(round(avg(case when state='PA' then quant end),0),0) as PA_AVG,
+	COALESCE(round(avg(quant),0),0) as AVERAGE, sum(quant) as TOTAL, count(quant) as COUNT
+	from sales
+	group by prod,cust

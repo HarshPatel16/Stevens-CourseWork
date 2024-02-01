@@ -1,0 +1,91 @@
+CWID- 20005159
+Name- Harsh Maheshbhai Patel
+
+
+1.
+
+with t1 as(
+	select sales.cust as customer, sales.prod as product, sales.month, sales.state, round(avg(quant)) as cust_avg from sales
+	group by cust, prod,month,state),
+
+t2 as(
+	select sales.prod,round(avg(quant)) as other_prod_avg from sales,t1
+	where t1.product <> sales.prod
+	group by prod),
+
+t3 as(
+	select sales.month,round(avg(quant)) as other_month_avg from sales,t1
+	where t1.month<>sales.month
+	group by sales.month),
+
+t4 as(
+	select sales.state,round(avg(quant)) as other_state_avg from sales,t1
+	where t1.state<>sales.state
+	group by sales.state)
+
+select t1.customer, t1.product, t1.month, t1.state, t1.cust_avg, t2.other_prod_avg,t3.other_month_avg,t4.other_state_avg
+from sales,t1,t2,t3,t4
+where sales.prod<>t1.product
+
+
+2.
+
+with 
+q2 as(
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as before_avg
+	from sales where month between 1 and 3
+	group by cust,prod,state),
+
+q3 as(
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as  before_avg
+	from sales where month between 4 and 6
+	group by cust,prod,state),
+
+q4 as(	
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as  before_avg
+	from sales where month between 7 and 9
+	group by cust,prod,state),
+
+q5 as(	
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as  after_avg
+	from sales where month between 4 and 6
+	group by cust,prod,state),
+
+q6 as(	
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as  after_avg
+	from sales where month between 7 and 9
+	group by cust,prod,state),
+
+q7 as(	
+	select sales.cust as customer, sales.prod as product, sales.state, round(avg(sales.quant)) as  after_avg
+	from sales where month between 10 and 12
+	group by cust,prod,state)
+
+select q2.customer, q2.product, q2.state,q2.before_avg,q3.customer, q3.product, q3.state,q3.before_avg,q4.customer, q4.product, q4.state,q4.before_avg,
+	   q5.customer, q5.product, q5.state,q5.after_avg,q6.customer, q6.product, q6.state,q6.after_avg,q7.customer, q7.product, q7.state,q7.after_avg
+	   from sales,q2,q3,q4,q5,q6,q7
+
+
+3.
+
+with t1 as(
+	select distinct (sales.prod)as product,count(quant)/2 as median_quant from sales
+	group by prod
+	order by prod asc)
+
+select distinct(t1.product),t1.median_quant from sales, t1
+
+
+4.
+
+SELECT cust, prod, min(month) as "75% PURCHASED BY MONTH"
+FROM (
+	SELECT
+	cust, prod, month, quant,
+	sum(quant) OVER (PARTITION BY cust, prod
+	ORDER BY cust, prod, month) AS quantitysumbymonth,
+	.75* SUM(quant) OVER (PARTITION BY cust, prod) AS totalQuantity
+	FROM
+	sales
+	ORDER BY
+	cust, prod,month) t where quantitysumbymonth>=totalQuantity group by cust, prod;
